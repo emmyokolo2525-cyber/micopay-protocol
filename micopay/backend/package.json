@@ -9,6 +9,7 @@
     "build": "tsc",
     "migrate": "tsx src/db/migrate.ts",
     "e2e": "node --import tsx ../scripts/e2e-test.ts",
+    "test": "node --import tsx src/tests/requestId.test.ts && node --import tsx src/tests/rateLimit.test.ts && node --import tsx src/tests/rateCache.test.ts && node --import tsx src/tests/tokenRevocation.test.ts && node --import tsx src/tests/security.test.ts && node --import tsx src/tests/kyc-didit.test.ts && node --import tsx src/tests/event-listener.test.ts && node --import tsx src/tests/tradeAuth.test.ts && node --import tsx src/tests/accountDeletion.test.ts && node --import tsx src/tests/refund.test.ts && node --import tsx src/tests/abuse.service.test.ts && node --import tsx src/tests/kyc-gate.service.test.ts && node --import tsx src/tests/compliance.test.ts",
     "test:rate-limit": "node --import tsx src/tests/rateLimit.test.ts",
     "test:abuse": "node --import tsx src/tests/abuse.service.test.ts",
     "test:kyc-gate": "node --import tsx src/tests/kyc-gate.service.test.ts",
