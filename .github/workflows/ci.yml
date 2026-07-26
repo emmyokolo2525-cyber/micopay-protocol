@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   backend:
-    name: Backend build (micopay/backend)
+    name: Backend build + tests (micopay/backend)
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -32,6 +32,16 @@ jobs:
       - run: npm ci
       - name: Build (tsc) — BLOQUEANTE
         run: npm run build
+      - name: Tests — BLOQUEANTE
+        # No Postgres in CI — the DB module falls back to an in-memory store
+        # automatically when NODE_ENV != 'production' and the connection fails.
+        # MOCK_STELLAR=true short-circuits on-chain calls (refund/trade tests).
+        # SECRET_ENCRYPTION_KEY is a dummy 32-byte hex value for AES-256-GCM.
+        env:
+          NODE_ENV: test
+          MOCK_STELLAR: "true"
+          SECRET_ENCRYPTION_KEY: "0000000000000000000000000000000000000000000000000000000000000000"
+        run: npm test
 
   frontend:
     name: Frontend build + tests (micopay/frontend)
